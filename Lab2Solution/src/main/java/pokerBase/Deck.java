@@ -23,6 +23,10 @@ public class Deck {
 			}
 			 
 		}
+		for (Card card : deckCards)
+		{
+			card.setbWild(false);
+		}
 		Collections.shuffle(deckCards);
 	}
 	
@@ -44,7 +48,7 @@ public class Deck {
 		this(NbrOfJokers);
 		for (Card card : deckCards)
 		{
-			card.setbWild(false);
+			
 			for (Card wild : Wilds)
 			{
 				if (card.geteRank() == wild.geteRank() && card.geteSuit() == wild.geteSuit())
