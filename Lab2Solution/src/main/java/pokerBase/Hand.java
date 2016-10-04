@@ -14,7 +14,7 @@ import pokerEnums.eSuit;
 import pokerExceptions.HandException;
 import pokerExceptions.exHand;
 
-public class Hand {
+public class Hand implements Comparable  {
 
 	private ArrayList<Card> CardsInHand = new ArrayList<Card>();
 	private boolean bScored;
@@ -47,53 +47,53 @@ public class Hand {
 
 	}
 	
-	public static Hand PickBestHand(ArrayList<Hand> Hands) throws exHand{
-		//Hand a = Hands.get(0);
-		//for(int i = 0; i< Hands.size();i++){}
-		Hand h = Hands.get(0);
-		/**Collections.sort(Hands,new Comparator<Hand>(){
-			@Override
-	        public int compare(Hand Hand1, Hand Hand2)
-	        {
-				HandScore hs1 = ((Hand) Hand1).getHs();
-				HandScore hs2 = ((Hand) Hand2).getHs();
-	            return ((Comparable) Hand1.getHs()).compareTo(Hand2.getHs());
-	        }
-	    });
-			
+	public static Hand PickBestHand(ArrayList<Hand> Hands) throws Exception{
+		for(Hand h:Hands){
+			Hand.EvaluateHand(h);
+		}
+		Collections.sort(Hands);
 		
-		if(Hands.get(Hands.size()-1) == Hands.get(Hands.size() - 2)){
-			throw new exHand(this);//Fix this
-		}
-		return Hands.get((Hands.size()-1));
-	*/	
-		if (Hands.size() != 1) {
-			Hand BestHand = Hands.get(0);
-			for (int i = 1; i < Hands.size() - 1; i++) {
-				if (BestHand.getHs().getHandStrength() < Hands.get(i).getHs().getHandStrength()) {
-					BestHand = Hands.get(i);
-				}
-				else if (BestHand.getHs().getHiHand() < Hands.get(i).getHs().getHiHand()) {
-					BestHand = Hands.get(i);
-				}
-				else if (BestHand.getHs().getLoHand() < Hands.get(i).getHs().getLoHand()) {
-					BestHand = Hands.get(i);				
-				}
-				else{
-					for (int j = 0; j < BestHand.getHs().getKickers().size(); j++) {
-						if (BestHand.getHs().getKickers().get(j).geteRank().getiRankNbr() < Hands.get(i).getHs().getKickers().get(j).geteRank().getiRankNbr()) {
-							BestHand = Hands.get(i);
-							break;
-						}
-					}
-				}
-				
-			}
-			h = BestHand;
-		}
-		return h;
+		return Hands.get(0);
 		
 	}
+		public static Comparator<Hand> HandRank = new Comparator<Hand>() {
+
+			public int compare(Hand h1, Hand h2) {
+
+			   HandScore Hno1 = h1.getHs();
+			   HandScore Hno2 = h2.getHs();
+
+			   int score = 0;
+			   score = Hno1.getHandStrength() - Hno2.getHandStrength();
+			   if(score == 0){
+				   score = Hno1.getHiHand() - Hno2.getHiHand();
+				   if(score == 0){
+					   score = Hno1.getLoHand() - Hno2.getLoHand();
+				   }
+			   }
+			   if(score !=0){
+				   return score;
+				   
+			   }
+			   for(int i = 0; i < Hno1.getKickers().size();i++){
+				   score = Hno1.getKickers().get(i).compareTo(Hno2.getKickers().get(i));
+				   if(score != 0){
+					   return score;
+				   }
+			   }
+			   return 1;
+
+		   }};
+		   
+		public int compareTo(Object o) {
+		    Hand h = (Hand) o; 
+		    return h.compareTo(this); 
+
+		}
+
+	
+		
+	
 	
 
 

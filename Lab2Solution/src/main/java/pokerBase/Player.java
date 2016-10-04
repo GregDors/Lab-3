@@ -14,6 +14,13 @@ public class Player {
 		
 	}
 	
+	public UUID getPlayerID() {
+		return PlayerID;
+	}
+
+	public void setPlayerID(UUID playerID) {
+		PlayerID = playerID;
+	}
 	
 	
 }
