@@ -15,7 +15,6 @@ public class Deck {
 		int iCardNbr = 1;
 		for (eSuit eSuit : eSuit.values()) {
 			for (eRank eRank : eRank.values()) {
-				//TODO Lab3 - Fix this
 				if (eSuit != eSuit.JOKER) 
 				{
 					deckCards.add(new Card(eSuit, eRank, iCardNbr++));
@@ -32,7 +31,6 @@ public class Deck {
 	
 	public Deck(int NbrOfJokers) {
 
-		//TODO Lab3 - Implement joker constructor
 		this();
 		for (int i = 1; i <= NbrOfJokers; i++)
 		{
@@ -44,7 +42,6 @@ public class Deck {
 	
 	public Deck(int NbrOfJokers, ArrayList<Card> Wilds) {
 
-		//TODO Lab3 - Implement joker and wild constructor
 		this(NbrOfJokers);
 		for (Card card : deckCards)
 		{
